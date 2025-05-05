@@ -13,6 +13,8 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import java.util.LinkedHashMap
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.serializer
 import me.centralhardware.db.DatabaseFactory
 import me.centralhardware.plugins.configureRouting
 import org.slf4j.LoggerFactory
@@ -40,7 +42,10 @@ fun Application.module() {
     // Create a serializers module to register LinkedHashMap for polymorphic serialization
     val mapSerializersModule = SerializersModule {
         polymorphic(Map::class) {
-            subclass(LinkedHashMap::class)
+            // Use a specific serializer for LinkedHashMap with String keys and Any values
+            @Suppress("UNCHECKED_CAST")
+            val serializer = serializer<LinkedHashMap<String, Any>>() as KSerializer<LinkedHashMap<*, *>>
+            subclass(serializer)
         }
     }
 
