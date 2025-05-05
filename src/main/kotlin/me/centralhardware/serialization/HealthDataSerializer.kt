@@ -72,6 +72,15 @@ class HealthDataSerializer : KSerializer<HealthData> {
                         json.decodeFromJsonElement(ToothbrushingMetric.serializer(), metricElement)
                     metricElement["reason"] != null -> 
                         json.decodeFromJsonElement(InsulinDeliveryMetric.serializer(), metricElement)
+                    // Special health metrics
+                    metricElement["heartRate"] != null || metricElement["heartRateVariation"] != null -> 
+                        json.decodeFromJsonElement(HeartRateNotificationsMetric.serializer(), metricElement)
+                    metricElement["severity"] != null && metricElement["userEntered"] != null -> 
+                        json.decodeFromJsonElement(SymptomsMetric.serializer(), metricElement)
+                    metricElement["valence"] != null && metricElement["valenceClassification"] != null -> 
+                        json.decodeFromJsonElement(StateOfMindMetric.serializer(), metricElement)
+                    metricElement["classification"] != null && metricElement["voltageMeasurements"] != null -> 
+                        json.decodeFromJsonElement(ECGMetric.serializer(), metricElement)
                     else -> 
                         // Default to CommonHealthMetric for any other metric
                         try {
