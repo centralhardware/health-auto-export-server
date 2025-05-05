@@ -1,9 +1,9 @@
-FROM gradle:8.5-jdk22 as build
+FROM gradle:jdk23-graal as gradle
 WORKDIR /app
 COPY . .
 RUN gradle build --no-daemon
 
-FROM openjdk:22-slim
+FROM openjdk:23-slim
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
