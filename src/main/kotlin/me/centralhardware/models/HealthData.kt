@@ -1,5 +1,6 @@
 package me.centralhardware.models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,7 +16,7 @@ data class HealthDataExport(
 /**
  * Container for metrics and workouts
  */
-@Serializable
+@Serializable(with = me.centralhardware.serialization.HealthDataSerializer::class)
 data class HealthData(
     val metrics: List<HealthMetric>,
     val workouts: List<Workout>
@@ -183,6 +184,7 @@ sealed class HealthMetric {
  * Common format for most health metrics
  */
 @Serializable
+@SerialName("common")
 data class CommonHealthMetric(
     override val name: String,
     override val units: String,
@@ -202,6 +204,7 @@ data class CommonHealthData(
  * Blood Pressure metric
  */
 @Serializable
+@SerialName("blood_pressure")
 data class BloodPressureMetric(
     override val name: String = "Blood Pressure",
     override val units: String? = null,
@@ -222,6 +225,7 @@ data class BloodPressureData(
  * Heart Rate metric
  */
 @Serializable
+@SerialName("heart_rate")
 data class HeartRateMetric(
     override val name: String = "Heart Rate",
     override val units: String? = null,
@@ -243,6 +247,7 @@ data class HeartRateData(
  * Sleep Analysis metric
  */
 @Serializable
+@SerialName("sleep_analysis")
 data class SleepAnalysisMetric(
     override val name: String = "Sleep Analysis",
     override val units: String? = null,
@@ -269,6 +274,7 @@ data class SleepAnalysisData(
  * Blood Glucose metric
  */
 @Serializable
+@SerialName("blood_glucose")
 data class BloodGlucoseMetric(
     override val name: String = "Blood Glucose",
     override val units: String? = null,
@@ -289,6 +295,7 @@ data class BloodGlucoseData(
  * Sexual Activity metric
  */
 @Serializable
+@SerialName("sexual_activity")
 data class SexualActivityMetric(
     override val name: String = "Sexual Activity",
     override val units: String? = null,
@@ -310,6 +317,7 @@ data class SexualActivityData(
  * Handwashing metric
  */
 @Serializable
+@SerialName("handwashing")
 data class HandwashingMetric(
     override val name: String = "Handwashing",
     override val units: String? = null,
@@ -330,6 +338,7 @@ data class HandwashingData(
  * Toothbrushing metric
  */
 @Serializable
+@SerialName("toothbrushing")
 data class ToothbrushingMetric(
     override val name: String = "Toothbrushing",
     override val units: String? = null,
@@ -350,6 +359,7 @@ data class ToothbrushingData(
  * Insulin Delivery metric
  */
 @Serializable
+@SerialName("insulin_delivery")
 data class InsulinDeliveryMetric(
     override val name: String = "Insulin Delivery",
     override val units: String? = null,
