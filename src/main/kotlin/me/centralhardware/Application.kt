@@ -47,6 +47,11 @@ fun Application.module() {
             me.centralhardware.serialization.AnyValueMapSerializer()
         }
 
+        // Register a serializer for Any
+        contextual(Any::class) { _ ->
+            me.centralhardware.serialization.AnySerializer()
+        }
+
         // Register LinkedHashMap for polymorphic serialization in the scope of Map
         polymorphic(Map::class) {
             subclass(LinkedHashMap::class as KClass<LinkedHashMap<String, Any?>>)
