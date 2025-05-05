@@ -39,14 +39,10 @@ fun Application.module() {
         throw e
     }
 
-    // Create a serializers module to register LinkedHashMap for polymorphic serialization
+    // Create a serializers module to register LinkedHashMap serializer
     val mapSerializersModule = SerializersModule {
-        polymorphic(Map::class) {
-            // Use a specific serializer for LinkedHashMap with String keys and Any values
-            @Suppress("UNCHECKED_CAST")
-            val serializer = serializer<LinkedHashMap<String, Any>>() as KSerializer<LinkedHashMap<*, *>>
-            subclass(serializer)
-        }
+        @Suppress("UNCHECKED_CAST")
+        contextual(LinkedHashMap::class, me.centralhardware.serialization.AnyValueMapSerializer() as KSerializer<LinkedHashMap<*, *>>)
     }
 
     // Install plugins
