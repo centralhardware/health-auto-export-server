@@ -31,8 +31,8 @@ dependencies {
     implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
 
     // ClickHouse
-    implementation("com.clickhouse:clickhouse-jdbc:0.4.6")
-    implementation("com.clickhouse:clickhouse-http-client:0.4.6")
+    implementation("com.clickhouse:clickhouse-jdbc:0.8.5")
+    implementation("com.clickhouse:clickhouse-http-client:0.8.5")
 
     // Logging
     implementation("ch.qos.logback:logback-classic:1.4.11")
