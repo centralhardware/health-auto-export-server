@@ -1,4 +1,4 @@
-FROM gradle:jdk23-graal as gradle
+FROM gradle:jdk23-graal as build
 WORKDIR /app
 COPY . .
 RUN gradle build --no-daemon
