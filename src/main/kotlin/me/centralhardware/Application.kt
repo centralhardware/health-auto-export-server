@@ -15,6 +15,7 @@ import kotlinx.serialization.modules.subclass
 import java.util.LinkedHashMap
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.serializer
+import kotlin.reflect.KClass
 import me.centralhardware.db.DatabaseFactory
 import me.centralhardware.plugins.configureRouting
 import org.slf4j.LoggerFactory
@@ -48,7 +49,7 @@ fun Application.module() {
 
         // Register LinkedHashMap for polymorphic serialization in the scope of Map
         polymorphic(Map::class) {
-            subclass(LinkedHashMap::class)
+            subclass(LinkedHashMap::class as KClass<LinkedHashMap<String, Any?>>)
         }
     }
 
