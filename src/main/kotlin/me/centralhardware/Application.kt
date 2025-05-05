@@ -9,6 +9,10 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
+import java.util.LinkedHashMap
 import me.centralhardware.db.DatabaseFactory
 import me.centralhardware.plugins.configureRouting
 import org.slf4j.LoggerFactory
@@ -33,12 +37,20 @@ fun Application.module() {
         throw e
     }
 
+    // Create a serializers module to register LinkedHashMap for polymorphic serialization
+    val mapSerializersModule = SerializersModule {
+        polymorphic(Map::class) {
+            subclass(LinkedHashMap::class)
+        }
+    }
+
     // Install plugins
     install(ContentNegotiation) {
         json(Json {
             prettyPrint = true
             isLenient = true
             ignoreUnknownKeys = true
+            serializersModule = mapSerializersModule
         })
     }
 
