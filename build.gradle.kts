@@ -11,16 +11,6 @@ application {
     mainClass.set("me.centralhardware.ApplicationKt")
 }
 
-kotlin {
-    jvmToolchain(22)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(22))
-    }
-}
-
 repositories {
     mavenCentral()
 }
